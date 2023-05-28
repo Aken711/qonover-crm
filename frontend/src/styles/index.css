@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "./pages/home.css";
+@import "./pages/userapp.css";
+@import "./components/navbar.css";
+@import "./components/navbaruser.css";
+@import "./components/userDashboard.css";
+
+
+:root {
+  --main: #14213D;
+  --second: #FCA311;
+  --gray : #E5E5E5;
+  --secondlighter: hsl(26, 100%, 70%);
+  --seconddarker: hsl(26, 100%, 50%);
+  --greydark: hsl(215, 40%, 15%);
+  --greydarkmid: hsl(215, 35%, 17%);
+  --greymid: hsl(215, 20%, 66%);
+  --greylight: hsl(215, 10%, 80%);
+  --greylighter: hsl(210, 11%, 95%);
+  --error: hsl(0, 63%, 40%);
+  --success: hsl(115, 63%, 40%);
+  --info: hsl(195, 63%, 40%);
+  --warning: hsl(53, 63%, 40%);
+  --white: rgb(255, 255, 255);
+  --whiter: hsl(0, 0%, 95%);
+  --black: #212529;
+  --blacklight: hsl(210, 11%, 45%);
+}
+
+* {
+  font-family: "Poppins", sans-serif !important;
+  color: var(--black);
+}
+
+body {
+  background-color: var(--white);
+  padding: 0;
+  margin: 0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+

@@ -1,0 +1,197 @@
+.main-boxes-homepage{
+    display: flex;
+    margin: 5vh 0;
+    padding: 5vh 10vw;
+    align-items: center;
+}
+.h2homepage{
+    text-align: center;
+}
+
+.svghomepage{
+    position: absolute;
+    top: calc(2vh+75vw);
+}
+
+.first-box-div{
+    margin-top: 0;
+}
+
+.first-box-text{
+    padding: 10vh;
+}
+.first-box-cta{
+    display: flex;
+    justify-content: center;
+    margin: 5vh 0;
+}
+
+.openaccount-btn{
+    padding: 10px 30px;
+    border-radius: 20px;
+    color: var(--white);
+    background-color:  var(--main);
+    border: 1px solid var(--white);
+    margin-right: 1vw;
+}
+
+.demo-btn{
+    padding: 10px 30px;
+    border-radius: 20px;
+    color: var(--main);
+    background-color: var(--white);
+    border: 1px solid var(--main);
+    margin-left: 1vw;
+}
+
+.second-box-text, .third-box-text, .fourth-box-text{
+    font-size: large;
+}
+
+.second-box-img, .fourth-box-img{
+    margin-right: 5vw;
+}
+
+.third-box-img{
+    margin-left: 5vw;
+}
+
+.features{
+    margin: 10vh 0;
+}
+
+.features-boxes{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10vh 5vw;
+}
+
+.features-text h2 {
+    margin-bottom: 2vh;
+}
+
+.features-text, .features-img{
+    width: 30vw;
+}
+
+.pricing{ 
+    margin-top: 10vh;
+}
+
+.pricing-text{
+    display: flex;
+    width: 80vw;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.pricing-text-left{
+    width: 30vw;
+}
+
+.pricing-text-right{
+    width: 30vw;
+}
+
+.pricing-box{
+    width: 30vw;
+    margin: 10vh auto;
+    border-radius: 20px;
+    padding: 25px;
+    -webkit-box-shadow: 0px 0px 8px -2px #000000; 
+    box-shadow: 0px 0px 8px -6px #000000;
+}
+
+.pricing-box-cta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3vh 0;
+}
+
+.pricing-box-cta button{
+    padding: 10px 30px;
+    border-radius: 20px;
+    color: var(--white);
+    background-color:  var(--main);
+    border: 1px solid var(--white);
+    text-align: center;
+    font-size: x-large;
+    width: 100%;
+}
+
+.pricing-box-cta a{
+    text-decoration: none;
+    color: white;
+    width: 100%;
+}
+
+.pricing-boxes-advantages{
+    display: flex;
+    margin-bottom: 2vh;
+    align-items: center;
+}
+
+.pricing-boxes-advantages-tick{
+    margin-right: 1vw;
+}
+
+.pricing-boxes-advantages-tick img{
+    width: 2vw;
+}
+
+.log-container{
+    width: 100%;
+    height: calc(100vh - 75vw - 4vh) !important;
+}
+
+.sign-in, .sign-up{
+    width: 45vw;
+    margin: 0 auto;
+    margin-top: 10vh;
+}
+
+.sign-in h2, .sign-up h2{
+    text-align: center;
+}
+
+#emailSignInInput,  #passwordSignInInput{
+    margin-bottom: 5vh;
+}
+
+.sign-up .form-label{
+margin-top: 15px;
+}
+
+.btn-login{
+    padding: 10px;
+    border-radius: 20px;
+    color: var(--white);
+    background-color:  var(--main);
+    border: 1px solid var(--white);
+    text-align: center;
+    font-size: large;
+    width: 50%;
+    display: block;
+    margin: 0 auto; 
+}
+
+.link-to-register, .link-to-signin{
+    display: block;
+    margin: 0 auto; 
+    margin-top: 25px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.accept-terms-btn{
+    display: flex;
+    margin: 15px 0;
+    align-items: center;
+}
+
+.accept-terms-btn .form-check-input{
+margin-right: 25px;;
+}
