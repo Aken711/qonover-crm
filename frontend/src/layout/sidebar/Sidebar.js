@@ -3,7 +3,6 @@ import classNames from "classnames";
 import SimpleBar from "simplebar-react";
 import Logo from "../logo/Logo";
 import Menu from "../menu/Menu";
-import Toggle from "./Toggle";
 import EcommerceMenu from "../menu/EcommerceMenu";
 
 import { useTheme, useThemeUpdate } from '../provider/Theme';
@@ -37,16 +36,7 @@ const Sidebar = ({ fixed, className, ...props }) => {
           <div className="nk-sidebar-brand">
             <Logo />
           </div>
-          <div className="nk-menu-trigger me-n2">
-            <Toggle className="nk-nav-toggle nk-quick-nav-icon d-xl-none me-n2" icon="arrow-left" click={themeUpdate.sidebarVisibility} />
-            <Toggle
-              className={`nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex ${
-                theme.sidebarCompact ? "compact-active" : ""
-              }`}
-              click={themeUpdate.sidebarCompact}
-              icon="menu"
-            />
-          </div>
+          
         </div>
         <div className="nk-sidebar-content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SimpleBar className="nk-sidebar-menu">

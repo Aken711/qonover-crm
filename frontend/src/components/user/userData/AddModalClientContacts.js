@@ -9,7 +9,7 @@ import {
   Col,
   Button,
   RSelect,
-} from "../../../components/Component";
+} from "../../Component";
 import { useForm } from "react-hook-form";
 
 

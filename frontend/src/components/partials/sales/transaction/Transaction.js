@@ -42,17 +42,6 @@ const TransactionTable = () => {
             <li>
               <DropdownItem
                 tag="a"
-                href="#invoice"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Invoice
-              </DropdownItem>
-            </li>
-            <li>
-              <DropdownItem
-                tag="a"
                 href="#print"
                 onClick={(ev) => {
                   ev.preventDefault();
@@ -72,16 +61,8 @@ const TransactionTable = () => {
         <div className="card-title-group">
           <CardTitle>
             <h6 className="title">
-              <span className="me-2">Transaction</span>{" "}
-              <a
-                href="#history"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-                className="link d-none d-sm-inline"
-              >
-                See History
-              </a>
+              <span className="me-2">Invoices</span>{" "}
+              
             </h6>
           </CardTitle>
           <div className="card-tools">
@@ -123,13 +104,13 @@ const TransactionTable = () => {
       <DataTableBody className="border-top" bodyclass="nk-tb-orders">
         <DataTableHead>
           <DataTableRow>
-            <span>Order No.</span>
+            <span>Invoices No.</span>
           </DataTableRow>
           <DataTableRow size="sm">
-            <span>Customer</span>
+            <span>Client</span>
           </DataTableRow>
           <DataTableRow size="md">
-            <span>Date</span>
+            <span>Due date</span>
           </DataTableRow>
           <DataTableRow size="lg">
             <span>Ref</span>
@@ -154,7 +135,6 @@ const TransactionTable = () => {
               </DataTableRow>
               <DataTableRow size="sm">
                 <div className="user-card">
-                  <UserAvatar size="sm" theme={item.theme} text={item.initial} image={item.img}></UserAvatar>
                   <div className="user-name">
                     <span className="tb-lead">{item.name}</span>
                   </div>

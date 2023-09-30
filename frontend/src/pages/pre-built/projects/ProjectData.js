@@ -437,6 +437,28 @@ export const projectData = [
   },
 ];
 
+
+export const tasksData = [
+  {
+    id: 1,
+    name: "développer le site web",
+    description : "le site doit être réaliser pendant le rush / Spirnt",
+    due_date: new Date("2023-08-31"),
+    status: "active",
+    client: "ABC company",
+    project: "Web Design"
+  },
+  
+];
+
+// name: { type: String },
+//         description: { type: String },
+//         priority: { type: String },
+//         due_date: { type: Date },
+//         status : {type: String},
+//         client: { type: Schema.Types.ObjectID, ref: "user.client" },
+//         project: { type: Schema.Types.ObjectID, ref: "user.project" },
+
 export const teamList = [
   { value: "Abu Bin", label: "Abu Bin", theme: "purple" },
   { value: "Newman John", label: "Newman John", theme: "primary" },
@@ -444,4 +466,14 @@ export const teamList = [
   { value: "Joshua Wilson", label: "Joshua Wilson", theme: "pink" },
   { value: "Ryu Duke", label: "Ryu Duke", theme: "orange" },
   { value: "Aliah Pitts", label: "Aliah Pitts", theme: "blue" },
+];
+
+export const clientList = [
+  {value: "ABC Company", label:"ABC Company"},
+  {value: "XYZ Corporation", label: "XYZ Corporation"},
+{value: "123 Industries", label: "123 Industries"},
+{value: "Global Solutions Ltd.", label: "Global Solutions Ltd."},
+{value: "Smith & Sons Enterprises", label: "Smith & Sons Enterprises"},
+{value: "Tech Innovations Inc.", label: "Tech Innovations Inc."}
+
 ];

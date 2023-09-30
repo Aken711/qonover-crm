@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import Head from "../layout/head/Head";
 import Content from "../layout/content/Content";
 import SaleRevenue from "../components/partials/sales/sale-revenue/SaleRevenue";
@@ -23,18 +24,34 @@ import {
   Row,
   Col,
 } from "../components/Component";
+import axios from 'axios';
+
 
 const SalesHome = () => {
   const [sm, updateSm] = useState(false);
+  const [buttonLabel, setButtonLabel] = useState("Last 30 Days");
+  const [dataApi, setDataApi] = useState([])
+  const {id} = useParams()
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/user/userinfo/${id}`)
+  .then((response) => {
+    setDataApi(response.data);
+  })
+  .catch((error) => {console.log("erreur :",error)})
+  })
+
+
   return (
     <React.Fragment>
-      <Head title="Sales Dashboard" />
+      <Head title="Dashboard" />
       <Content>
+
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle page tag="h3">
-                Overview
+                Overview 
               </BlockTitle>
             </BlockHeadContent>
             <BlockHeadContent>
@@ -52,7 +69,7 @@ const SalesHome = () => {
                         <DropdownToggle tag="a" className="btn btn-white btn-dim btn-outline-light">
                           <Icon className="d-none d-sm-inline" name="calender-date" />
                           <span>
-                            <span className="d-none d-md-inline">Last</span> 30 Days
+                            <span className="d-none d-md-inline">{buttonLabel}</span>
                           </span>
                           <Icon className="dd-indc" name="chevron-right" />
                         </DropdownToggle>
@@ -63,6 +80,7 @@ const SalesHome = () => {
                                 tag="a"
                                 onClick={(ev) => {
                                   ev.preventDefault();
+                                  setButtonLabel("Last 30 days");
                                 }}
                                 href="#!"
                               >
@@ -74,6 +92,7 @@ const SalesHome = () => {
                                 tag="a"
                                 onClick={(ev) => {
                                   ev.preventDefault();
+                                  setButtonLabel("Last 6 months");
                                 }}
                                 href="#dropdownitem"
                               >
@@ -85,10 +104,11 @@ const SalesHome = () => {
                                 tag="a"
                                 onClick={(ev) => {
                                   ev.preventDefault();
+                                  setButtonLabel("Last year");
                                 }}
                                 href="#dropdownitem"
                               >
-                                <span>Last 3 weeks</span>
+                                <span>Last year</span>
                               </DropdownItem>
                             </li>
                           </ul>
@@ -96,10 +116,7 @@ const SalesHome = () => {
                       </UncontrolledDropdown>
                     </li>
                     <li className="nk-block-tools-opt">
-                      <Button color="primary">
-                        <Icon name="reports" />
-                        <span>Reports</span>
-                      </Button>
+                                            
                     </li>
                   </ul>
                 </div>
@@ -107,62 +124,73 @@ const SalesHome = () => {
             </BlockHeadContent>
           </BlockBetween>
         </BlockHead>
+
         <Block>
+
           <Row className="g-gs">
-            <Col xxl="6">
+
+            <Col xxl="4">
               <Row className="g-gs">
                 <Col lg="6" xxl="12">
                   <PreviewAltCard>
-                    <SaleRevenue />
+                    <SaleRevenue timeframe={buttonLabel}  />
                   </PreviewAltCard>
                 </Col>
                 <Col lg="6" xxl="12">
                   <Row className="g-gs">
                     <Col sm="6" lg="12" xxl="6">
                       <PreviewAltCard>
-                        <ActiveSubscription />
+                        <ActiveSubscription timeframe={buttonLabel} />
                       </PreviewAltCard>
                     </Col>
                     <Col sm="6" lg="12" xxl="6">
                       <PreviewAltCard>
-                        <AvgSubscription />
+                        <AvgSubscription  timeframe={buttonLabel}  />
                       </PreviewAltCard>
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </Col>
-            <Col xxl="6">
+
+            <Col xxl="8">
               <PreviewAltCard className="h-100">
-                <SalesOverview />
-              </PreviewAltCard>
+                <SalesOverview timeframe={buttonLabel}  />
+              </PreviewAltCard >
             </Col>
+
             <Col xxl="8">
               <Card className="card-full">
                 <TransactionTable />
               </Card>
             </Col>
+
             <Col xxl="4" md="6">
               <Card className="card-full">
                 <RecentActivity />
               </Card>
             </Col>
+
             <Col xxl="4" md="6">
               <Card className="card-full">
                 <NewsUsers />
               </Card>
             </Col>
+
             <Col lg="6" xxl="4">
               <Card className="h-100">
                 <Support />
               </Card>
             </Col>
+
             <Col lg="6" xxl="4">
               <Card className="h-100">
                 <Notifications />
               </Card>
             </Col>
+            
           </Row>
+
         </Block>
       </Content>
     </React.Fragment>

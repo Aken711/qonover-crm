@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { activityData } from "./ActivityData";
 import { CardTitle } from "reactstrap";
-import UserAvatar from "../../../user/UserAvatar";
 
 const RecentActivity = () => {
   const [recentUser, setRecentUser] = useState("");
@@ -10,7 +9,7 @@ const RecentActivity = () => {
       <div className="card-inner border-bottom">
         <div className="card-title-group">
           <CardTitle>
-            <h6 className="title">Recent Activities</h6>
+            <h6 className="title">Recent quotations</h6>
           </CardTitle>
           <div className="card-tools">
             <ul className="card-tools-nav">
@@ -43,12 +42,7 @@ const RecentActivity = () => {
           ? activityData.slice(0, 3).map((item) => {
               return (
                 <li className="nk-activity-item" key={item.name}>
-                  <UserAvatar
-                    className="nk-activity-media"
-                    theme={item.theme}
-                    image={item.img}
-                    text={item.initial}
-                  ></UserAvatar>
+                  
                   <div className="nk-activity-data">
                     <div className="label">{item.name + " " + item.activity}</div>
                     <span className="time">{item.time}</span>
@@ -59,12 +53,7 @@ const RecentActivity = () => {
           : activityData.map((item) => {
               return (
                 <li className="nk-activity-item" key={item.name}>
-                  <UserAvatar
-                    className="nk-activity-media"
-                    theme={item.theme}
-                    image={item.img}
-                    text={item.initial}
-                  ></UserAvatar>
+                  
                   <div className="nk-activity-data">
                     <div className="label">{item.name + " " + item.activity}</div>
                     <span className="time">{item.time}</span>

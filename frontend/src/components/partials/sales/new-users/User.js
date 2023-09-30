@@ -1,6 +1,5 @@
 import React from "react";
 import { newUserData } from "./UserData";
-import UserAvatar from "../../../user/UserAvatar";
 import Icon from "../../../icon/Icon";
 import { DropdownMenu, DropdownToggle, DropdownItem, UncontrolledDropdown, CardTitle } from "reactstrap";
 
@@ -22,7 +21,7 @@ const NewsUsers = () => {
                 }}
               >
                 <Icon name="setting"></Icon>
-                <span>Action Settings</span>
+                <span>Edit</span>
               </DropdownItem>
             </li>
             <li>
@@ -34,7 +33,7 @@ const NewsUsers = () => {
                 }}
               >
                 <Icon name="notify"></Icon>
-                <span>Use Notification</span>
+                <span>Mark as done</span>
               </DropdownItem>
             </li>
           </ul>
@@ -47,11 +46,11 @@ const NewsUsers = () => {
       <div className="card-inner">
         <div className="card-title-group">
           <CardTitle>
-            <h6 className="title">New Users</h6>
+            <h6 className="title">Tasks of the day</h6>
           </CardTitle>
           <div className="card-tools">
             <a
-              href="#dropdownitem"
+              href="/tasks"
               className="link"
               onClick={(ev) => {
                 ev.preventDefault();
@@ -66,7 +65,6 @@ const NewsUsers = () => {
         return (
           <div className="card-inner card-inner-md" key={idx}>
             <div className="user-card">
-              <UserAvatar theme={item.theme} text={item.initial}></UserAvatar>
               <div className="user-info">
                 <span className="lead-text">{item.name}</span>
                 <span className="sub-text">{item.email}</span>

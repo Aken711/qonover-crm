@@ -52,16 +52,16 @@ $base-light:  		$base-400;
 $base-dim:  		mix($base-color,$white, 8%);
 
 // Base/Default color @used for text
-$accent-100:        hsl(220, 100%, 96%);
-$accent-200:        hsl(220, 100%, 93%);
-$accent-300:        hsl(220, 100%, 88%);
-$accent-400:        hsl(220, 100%, 79%);
-$accent-500:        hsl(220, 100%, 72%);
+$accent-100:        hsl(199, 100%, 96%);
+$accent-200:        hsl(199, 100%, 93%);
+$accent-300:        hsl(199, 100%, 88%);
+$accent-400:        hsl(199, 100%, 79%);
+$accent-500:        hsl(199, 100%, 72%);
 
-$accent-color:      hsl(220, 100%, 65%);
+$accent-color:      hsl(199, 63%, 21%);
 $accent-light:      $accent-300;
-$accent-dark:       hsl(220, 54%, 29%);
-$accent-dim:  	    hsl(220, 93%, 94%);
+$accent-dark:       hsl(199, 54%, 29%);
+$accent-dim:  	    hsl(199, 93%, 94%);
 
 
 $body-bg:			$lighter;

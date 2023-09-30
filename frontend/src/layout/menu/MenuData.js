@@ -1,67 +1,56 @@
 const menu = [
-  
+
   {
-    icon: "bag",
-    text: "E-Commerce Panel",
-    link: "/ecommerce/index",
-    panel: true,
-    newTab: true,
-    subPanel: [
-      {
-        icon: "dashboard-fill",
-        text: "Dashboard",
-        link: "/ecommerce/index",
-      },
-      {
-        icon: "bag-fill",
-        text: "Orders",
-        link: "/ecommerce/orders",
-      },
-      {
-        icon: "package-fill",
-        text: "Products",
-        link: "/ecommerce/products",
-      },
-      {
-        icon: "users-fill",
-        text: "Customers",
-        link: "/ecommerce/customer",
-      },
-      {
-        icon: "chat-fill",
-        text: "Support",
-        link: "/ecommerce/support",
-      },
-      {
-        icon: "opt-alt-fill",
-        text: "Settings",
-        link: "/ecommerce/settings",
-      },
-      {
-        icon: "server-fill",
-        text: "Integration",
-        link: "/ecommerce/integration",
-      },
-    ],
-  },
-  {
-    heading: "Dashboards",
-  },
-  {
-    icon: "cart-fill",
-    text: "Default",
-    link: "/",
-  },
-  {
-    icon: "activity-round-fill",
-    text: "Sales",
-    link: "/sales",
+    heading: "MENU",
   },
   {
     icon: "growth-fill",
-    text: "Analytics",
-    link: "/analytics",
+    text: "Dashboard",
+    link: "/",
   },
+  {
+    icon: "users-fill",
+    text: "Clients",
+    link: "/clients",
+  },
+  {
+    icon: "table-view-fill",
+    text: "Project",
+    link: "/projects",
+  },
+  {
+    icon: "view-group-fill",
+    text: "Tasks",
+    link: "/tasks",
+  },
+  {
+    icon: "file-docs",
+    text: "Invoices",
+    link: "/invoices",
+  },
+  {
+    icon: "card-view",
+    text: "Quotations",
+    link: "/quotations",
+  },
+  {
+    icon: "layers-fill",
+    text: "Job Board",
+    link: "/job-board",
+  },
+  {
+    icon: "puzzle",
+    text: "Profile",
+    link: "/profile",
+  },
+  {
+    icon: "signout",
+    text: "Log Out",
+    link: "/logout",
+  },
+ 
+
+
   {
     heading: "Pre-built Pages",
   },

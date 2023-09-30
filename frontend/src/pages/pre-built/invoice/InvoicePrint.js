@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Icon, Block } from "../../../components/Component";
 import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
-import LogoDark from "../../../images/logo-dark2x.png";
 import { invoiceData } from "./Invoice";
 import { useParams } from "react-router-dom";
 
@@ -34,21 +33,9 @@ const InvoicePrint = () => {
           <Block>
             <div className="invoice invoice-print">
               <div className="invoice-action">
-                <Button
-                  size="lg"
-                  color="primary"
-                  outline
-                  className="btn-icon btn-white btn-dim"
-                  onClick={() => window.print()}
-                >
-                  <Icon name="printer-fill"></Icon>
-                </Button>
+                <Button  size="lg" color="primary" outline className="btn-icon btn-white btn-dim" onClick={() => window.print()} > <Icon name="printer-fill"></Icon> </Button>
               </div>
               <div className="invoice-wrap">
-                <div className="invoice-brand text-center">
-                  <img src={LogoDark} alt="" />
-                </div>
-
                 <div className="invoice-head">
                   <div className="invoice-contact">
                     <span className="overline-title">Invoice To</span>
@@ -61,6 +48,10 @@ const InvoicePrint = () => {
                             House #65, 4328 Marion Street
                             <br />
                             Newbury, VT 05051
+                            <br />
+                           123 654 456
+                            <br />
+                            FR02 15645645665
                           </span>
                         </li>
                         <li>

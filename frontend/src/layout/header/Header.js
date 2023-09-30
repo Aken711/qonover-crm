@@ -4,7 +4,7 @@ import Toggle from "../sidebar/Toggle";
 import Logo from "../logo/Logo";
 import User from "./dropdown/user/User";
 import Notification from "./dropdown/notification/Notification";
-import HeaderSearch from "../header-search/HeaderSearch";
+
 import ChatDropdown from "./dropdown/chat/Chat";
 
 import { useTheme, useThemeUpdate } from '../provider/Theme';
@@ -36,7 +36,7 @@ const Header = ({ fixed, className, ...props }) => {
             <Logo />
           </div>
           <div className="nk-header-search ms-3 ms-xl-0">
-            <HeaderSearch />
+            
           </div>
           <div className="nk-header-tools">
             <ul className="nk-quick-nav">

@@ -1,36 +1,13 @@
 import React, { useState } from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  Progress,
-  DropdownItem,
-  Badge
-} from "reactstrap";
-import {
-  Block,
-  BlockHead,
-  BlockBetween,
-  BlockHeadContent,
-  BlockTitle,
-  BlockDes,
-  Icon,
-  Button,
-  UserAvatar,
-  PaginationComponent,
-  PreviewAltCard,
-  DataTableHead,
-  DataTableRow,
-  DataTableItem,
-} from "../../../components/Component";
-import { projectData } from "./ProjectData";
-import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from "../../../utils/Utils";
-import FormModal from "./FormModal";
+import Head from "../../layout/head/Head";
+import Content from "../../layout/content/Content";
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, Progress, DropdownItem, Badge } from "reactstrap";
+import { Block, BlockHead, BlockBetween, BlockHeadContent, BlockTitle, BlockDes, Icon, Button, UserAvatar, PaginationComponent, PreviewAltCard, DataTableHead, DataTableRow, DataTableItem, } from "../Component";
+import { projectData } from "../../pages/pre-built/projects/ProjectData";
+import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from "../../utils/Utils";
+import FormModalClientDetails from "../../pages/pre-built/projects/FormModalClientDetails";
 
-export const ProjectListPage = () => {
-  const [filter, setFilter] = useState("All"); 
+export const ClientDetailProjects = () => {
   const [sm, updateSm] = useState(false);
   const [modal, setModal] = useState({
     edit: false,
@@ -50,7 +27,6 @@ export const ProjectListPage = () => {
   });
   const [editFormData, setEditFormData] = useState({
     title: "",
-    subtitle: "",
     description: "",
     lead: "",
     tasks: 0,
@@ -114,9 +90,7 @@ export const ProjectListPage = () => {
       if (item.id === editId) {
         submittedData = {
           id: item.id,
-          avatarClass: item.avatarClass,
           title: title,
-          subtitle: subtitle,
           desc: description,
           lead: editFormData.lead,
           tasks: tasks,
@@ -195,28 +169,13 @@ export const ProjectListPage = () => {
     setData([...newData]);
   };
 
-  const filteredItems = filter === "All" ? data : data.filter(item => {
-    if (filter === "Open" && item.deadline > new Date()) {
-      return true;
-    } else if (filter === "Closed" && item.deadline <= new Date()) {
-      return true;
-    } else if (filter === "Onhold" && item.deadline === setDeadline(0)) {
-      return true;
-    }
-    return false;
-  });
   // Get current list, pagination
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
- 
-  
-
-  
 
   return (
     <React.Fragment>
@@ -225,8 +184,6 @@ export const ProjectListPage = () => {
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle page> Projects</BlockTitle>
-              <BlockDes className="text-soft">You have total {data.length} projects</BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
               <div className="toggle-wrap nk-block-tools-toggle">
@@ -247,10 +204,10 @@ export const ProjectListPage = () => {
                         </DropdownToggle>
                         <DropdownMenu end>
                           <ul className="link-list-opt no-bdr">
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); setFilter("All") }} > <span>All</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();   setFilter("Open")}} > <span>Open</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();  setFilter("Closed") }} > <span>Closed</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();  setFilter("Onhold") }} > <span>Onhold</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>All</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Open</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Closed</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Onhold</span> </DropdownItem> </li>
                           </ul>
                         </DropdownMenu>
                       </UncontrolledDropdown>
@@ -272,7 +229,6 @@ export const ProjectListPage = () => {
             <DataTableHead className="nk-tb-item nk-tb-head">
               <DataTableRow className="nk-tb-col-check"> <div className="custom-control custom-control-sm custom-checkbox notext"> <input type="checkbox" className="custom-control-input" id="pid-all" onChange={(e) => selectorCheck(e)} /> <label className="custom-control-label" htmlFor="pid-all"></label> </div></DataTableRow>
               <DataTableRow> <span className="sub-text">Project Name</span> </DataTableRow>
-              <DataTableRow size="xxl"> <span className="sub-text">Client</span> </DataTableRow>
               <DataTableRow size="xxl"> <span className="sub-text">Status</span> </DataTableRow>
               <DataTableRow size="md"> <span className="sub-text">Progress</span> </DataTableRow>
               <DataTableRow size="mb"> <span className="sub-text">Deadline</span> </DataTableRow>
@@ -297,7 +253,6 @@ export const ProjectListPage = () => {
                     <DataTableItem key={item.id}>
                       <DataTableRow className="nk-tb-col-check"> <div className="custom-control custom-control-sm custom-checkbox notext"> <input type="checkbox" className="custom-control-input" defaultChecked={item.checked} id={item.id + "pid-all"} key={Math.random()} onChange={(e) => onSelectChange(e, item.id)} /> <label className="custom-control-label" htmlFor={item.id + "pid-all"}></label> </div> </DataTableRow>
                       <DataTableRow> <a href="#title" onClick={(ev) => { ev.preventDefault(); }} className="project-title" > <div className="project-info"><h6 className="title">{item.title}</h6></div></a></DataTableRow>
-                      <DataTableRow size="xxl"> <span>{item.subtitle}</span> </DataTableRow>
                       <DataTableRow size="xxl"> <span>{days === 0 ? "Closed" : "Open"}</span> </DataTableRow>
                       <DataTableRow size="md">
                         <div className="project-list-progress">
@@ -306,18 +261,7 @@ export const ProjectListPage = () => {
                         </div>
                       </DataTableRow>
                       <DataTableRow size="mb">
-                        <Badge
-                          className="badge-dim"
-                          color={
-                            days > 10
-                              ? "light"
-                              : days <= 10 && days >= 2
-                              ? "warning"
-                              : days === 1
-                              ? "danger"
-                              : days <= 0 && "success"
-                          }
-                        >
+                        <Badge className="badge-dim" color={ days > 10 ? "light" : days <= 10 && days >= 2 ? "warning" : days === 1 ? "danger" : days <= 0 && "success" } >
                           <Icon name="clock"></Icon>
                           <span>{days <= 0 ? "Done" : days === 1 ? "Due Tomorrow" : days + " Days Left"}</span>
                         </Badge>
@@ -332,29 +276,11 @@ export const ProjectListPage = () => {
                               <DropdownMenu end>
                                 <ul className="link-list-opt no-bdr">
                                   <li onClick={() => onEditClick(item.id)}>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#edit"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                      }}
-                                    >
-                                      <Icon name="edit"></Icon>
-                                      <span>Edit</span>
-                                    </DropdownItem>
+                                    <DropdownItem tag="a" href="#edit" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="edit"></Icon> <span>Edit</span> </DropdownItem>
                                   </li>
                                   {days !== 0 && (
                                     <li onClick={() => completeProject(item.id)}>
-                                      <DropdownItem
-                                        tag="a"
-                                        href="#markasdone"
-                                        onClick={(ev) => {
-                                          ev.preventDefault();
-                                        }}
-                                      >
-                                        <Icon name="check-round-cut"></Icon>
-                                        <span>Mark As Done</span>
-                                      </DropdownItem>
+                                      <DropdownItem tag="a" href="#markasdone" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="check-round-cut"></Icon> <span>Mark As Done</span> </DropdownItem>
                                     </li>
                                   )}
                                 </ul>
@@ -384,11 +310,11 @@ export const ProjectListPage = () => {
           </PreviewAltCard>
         </Block>
 
-        <FormModal modal={modal.add} modalType="add" formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} />
-        <FormModal modal={modal.edit} modalType="edit" formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} />
+        <FormModalClientDetails modal={modal.add} modalType="add" formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} />
+        <FormModalClientDetails modal={modal.edit} modalType="edit" formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} />
       </Content>
     </React.Fragment>
   );
 };
 
-export default ProjectListPage;
+export default ClientDetailProjects;

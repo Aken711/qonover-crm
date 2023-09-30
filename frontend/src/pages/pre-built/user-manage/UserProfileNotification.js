@@ -33,9 +33,6 @@ const UserProfileNotificationPage = () => {
     viewChange();
     window.addEventListener("load", viewChange);
     window.addEventListener("resize", viewChange);
-    document.getElementsByClassName("nk-header")[0].addEventListener("click", function () {
-      updateSm(false);
-    });
     return () => {
       window.removeEventListener("resize", viewChange);
       window.removeEventListener("load", viewChange);

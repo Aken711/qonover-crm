@@ -1,62 +1,36 @@
 import React, { useState } from "react";
-import Head from "../../../layout/head/Head";
-import Content from "../../../layout/content/Content";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  Progress,
-  DropdownItem,
-  Badge
-} from "reactstrap";
-import {
-  Block,
-  BlockHead,
-  BlockBetween,
-  BlockHeadContent,
-  BlockTitle,
-  BlockDes,
-  Icon,
-  Button,
-  UserAvatar,
-  PaginationComponent,
-  PreviewAltCard,
-  DataTableHead,
-  DataTableRow,
-  DataTableItem,
-} from "../../../components/Component";
-import { projectData } from "./ProjectData";
-import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from "../../../utils/Utils";
-import FormModal from "./FormModal";
+import Head from "../../layout/head/Head";
+import Content from "../../layout/content/Content";
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, Progress, DropdownItem, Badge } from "reactstrap";
+import { Block, BlockHead, BlockBetween, BlockHeadContent, BlockTitle, BlockDes, Icon, Button, UserAvatar, PaginationComponent, PreviewAltCard, DataTableHead, DataTableRow, DataTableItem, } from "../Component";
+import { tasksData } from "../../pages/pre-built/projects/ProjectData";
+import { findUpper, setDeadline, setDeadlineDays, calcPercentage } from "../../utils/Utils";
+import FormModalClientDetails from "../../pages/pre-built/projects/FormModalClientDetails";
+import FormModalClientDetailsTask from "../../pages/pre-built/projects/FormModalClientDetailsTask";
 
-export const ProjectListPage = () => {
-  const [filter, setFilter] = useState("All"); 
+export const ClientDetailTasks = () => {
   const [sm, updateSm] = useState(false);
   const [modal, setModal] = useState({
     edit: false,
     add: false,
   });
   const [editId, setEditedId] = useState();
-  const [data, setData] = useState(projectData);
+  const [data, setData] = useState(tasksData);
   const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    lead: "",
-    tasks: 0,
-    team: [],
-    totalTask: 0,
-    date: new Date(),
+    name:"",
+    description:"",
+    due_date:"",
+    status: "",
+    client:"",
+    project:"",
   });
   const [editFormData, setEditFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    lead: "",
-    tasks: 0,
-    team: [],
-    totalTask: 0,
-    date: new Date(),
+    name:"",
+    description:"",
+    due_date:"",
+    status: "",
+    client:"",
+    project:"",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(7);
@@ -64,14 +38,12 @@ export const ProjectListPage = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      title: "",
-      subtitle: "",
-      description: "",
-      lead: "",
-      tasks: 0,
-      totalTask: 0,
-      team: [],
-      date: new Date(),
+        name:"",
+        description:"",
+        due_date:"",
+        status: "",
+        client:"",
+        project:"",
     });
   };
 
@@ -87,18 +59,15 @@ export const ProjectListPage = () => {
 
   // submit function to add a new item
   const onFormSubmit = (sData) => {
-    const { title, subtitle, description, tasks, totalTask } = sData;
+    const { name, description, due_date, status, client,project } = sData;
     let submittedData = {
       id: data.length + 1,
-      avatarClass: "pink",
-      title: title,
-      subtitle: subtitle,
-      desc: description,
-      lead: formData.lead,
-      team: formData.team,
-      tasks: tasks,
-      totalTask: totalTask,
-      deadline: new Date(`${formData.date}`), // Format ** mm/dd/yyyy
+      name: name,
+      description: description,
+      due_date: new Date(due_date),
+      status: status,
+      client: client,
+      project: project,
     };
     setData((data) => [submittedData, ...data]);
     resetForm();
@@ -107,22 +76,19 @@ export const ProjectListPage = () => {
 
   // submit function to update a new item
   const onEditSubmit = (sData) => {
-    const { title, subtitle, description, tasks, totalTask } = sData;
+    const { name, description, due_date, status, client,project } = sData;
     let submittedData;
     let newitems = data;
     newitems.forEach((item) => {
       if (item.id === editId) {
         submittedData = {
           id: item.id,
-          avatarClass: item.avatarClass,
-          title: title,
-          subtitle: subtitle,
-          desc: description,
-          lead: editFormData.lead,
-          tasks: tasks,
-          totalTask: totalTask,
-          deadline: new Date(`${editFormData.date}`), // Format ** mm/dd/yyyy
-          team: editFormData.team,
+          name: name,
+          description: description,
+          due_date: new Date(due_date),
+          status: status,
+          client: client,
+          project: project,
         };
       }
     });
@@ -137,14 +103,12 @@ export const ProjectListPage = () => {
     data.forEach((item) => {
       if (item.id === id) {
         setEditFormData({
-          title: item.title,
-          subtitle: item.subtitle,
-          description: item.desc,
-          lead: item.lead,
-          team: item.team,
-          tasks: item.tasks,
-          totalTask: item.totalTask,
-          date: item.deadline,
+          name: item.name,
+          description: item.description,
+          due_date: item.due_date,
+          status: item.status,
+          client: item.client,
+          project: item.project,
         });
         setModal({ edit: true }, { add: false });
         setEditedId(id);
@@ -195,38 +159,21 @@ export const ProjectListPage = () => {
     setData([...newData]);
   };
 
-  const filteredItems = filter === "All" ? data : data.filter(item => {
-    if (filter === "Open" && item.deadline > new Date()) {
-      return true;
-    } else if (filter === "Closed" && item.deadline <= new Date()) {
-      return true;
-    } else if (filter === "Onhold" && item.deadline === setDeadline(0)) {
-      return true;
-    }
-    return false;
-  });
   // Get current list, pagination
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
- 
-  
-
-  
-
   return (
     <React.Fragment>
-      <Head title="Project List"></Head>
+      <Head title="Tasks List"></Head>
       <Content>
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle page> Projects</BlockTitle>
-              <BlockDes className="text-soft">You have total {data.length} projects</BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
               <div className="toggle-wrap nk-block-tools-toggle">
@@ -247,10 +194,10 @@ export const ProjectListPage = () => {
                         </DropdownToggle>
                         <DropdownMenu end>
                           <ul className="link-list-opt no-bdr">
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); setFilter("All") }} > <span>All</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();   setFilter("Open")}} > <span>Open</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();  setFilter("Closed") }} > <span>Closed</span> </DropdownItem> </li>
-                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault();  setFilter("Onhold") }} > <span>Onhold</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>All</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Open</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Closed</span> </DropdownItem> </li>
+                            <li> <DropdownItem tag="a" href="#dropdownitem" onClick={(ev) => { ev.preventDefault(); }} > <span>Onhold</span> </DropdownItem> </li>
                           </ul>
                         </DropdownMenu>
                       </UncontrolledDropdown>
@@ -258,7 +205,7 @@ export const ProjectListPage = () => {
                     <li className="nk-block-tools-opt" onClick={() => setModal({ add: true })}>
                       <Button color="primary">
                         <Icon name="plus"></Icon>
-                        <span>Add Project</span>
+                        <span>Add Task</span>
                       </Button>
                     </li>
                   </ul>
@@ -271,10 +218,10 @@ export const ProjectListPage = () => {
           <div className="nk-tb-list is-separate nk-tb-ulist">
             <DataTableHead className="nk-tb-item nk-tb-head">
               <DataTableRow className="nk-tb-col-check"> <div className="custom-control custom-control-sm custom-checkbox notext"> <input type="checkbox" className="custom-control-input" id="pid-all" onChange={(e) => selectorCheck(e)} /> <label className="custom-control-label" htmlFor="pid-all"></label> </div></DataTableRow>
-              <DataTableRow> <span className="sub-text">Project Name</span> </DataTableRow>
-              <DataTableRow size="xxl"> <span className="sub-text">Client</span> </DataTableRow>
+              <DataTableRow> <span className="sub-text">Task Name</span> </DataTableRow>
               <DataTableRow size="xxl"> <span className="sub-text">Status</span> </DataTableRow>
-              <DataTableRow size="md"> <span className="sub-text">Progress</span> </DataTableRow>
+              <DataTableRow size="md"> <span className="sub-text">Client</span> </DataTableRow>
+              <DataTableRow size="md"> <span className="sub-text">Project</span> </DataTableRow>
               <DataTableRow size="mb"> <span className="sub-text">Deadline</span> </DataTableRow>
               <DataTableRow className="nk-tb-col-tools text-end">
                 <UncontrolledDropdown>
@@ -284,7 +231,7 @@ export const ProjectListPage = () => {
                   <DropdownMenu end>
                     <ul className="link-list-opt no-bdr">
                       <li onClick={() => selectorCompleteProject()}> <DropdownItem tag="a" href="#markasdone" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="check-round-cut"></Icon> <span>Mark As Done</span> </DropdownItem> </li>
-                      <li onClick={() => selectorDeleteProject()}> <DropdownItem tag="a" href="#remove" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="trash"></Icon> <span>Remove Projects</span> </DropdownItem> </li>
+                      <li onClick={() => selectorDeleteProject()}> <DropdownItem tag="a" href="#remove" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="trash"></Icon> <span>Remove Tasks</span> </DropdownItem> </li>
                     </ul>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -292,32 +239,23 @@ export const ProjectListPage = () => {
             </DataTableHead>
             {currentItems.length > 0
               ? currentItems.map((item) => {
-                  var days = setDeadlineDays(item.deadline);
+                  var days = setDeadlineDays(item.due_date);
                   return (
                     <DataTableItem key={item.id}>
                       <DataTableRow className="nk-tb-col-check"> <div className="custom-control custom-control-sm custom-checkbox notext"> <input type="checkbox" className="custom-control-input" defaultChecked={item.checked} id={item.id + "pid-all"} key={Math.random()} onChange={(e) => onSelectChange(e, item.id)} /> <label className="custom-control-label" htmlFor={item.id + "pid-all"}></label> </div> </DataTableRow>
-                      <DataTableRow> <a href="#title" onClick={(ev) => { ev.preventDefault(); }} className="project-title" > <div className="project-info"><h6 className="title">{item.title}</h6></div></a></DataTableRow>
-                      <DataTableRow size="xxl"> <span>{item.subtitle}</span> </DataTableRow>
-                      <DataTableRow size="xxl"> <span>{days === 0 ? "Closed" : "Open"}</span> </DataTableRow>
+                      <DataTableRow> 
+                        <a href="#title" onClick={(ev) => { ev.preventDefault(); }} className="project-title" > 
+                        <div className="project-info"><h6 className="title">{item.name}</h6></div></a>
+                        </DataTableRow>
+                      <DataTableRow size="xxl"> <span>{item.status}</span> </DataTableRow>
                       <DataTableRow size="md">
-                        <div className="project-list-progress">
-                          <Progress className="progress-pill progress-md bg-light" value={days === 0 ? 100 : calcPercentage(item.totalTask, item.tasks)} ></Progress>
-                          <div className="project-progress-percent"> {days === 0 ? 100 : calcPercentage(item.totalTask, item.tasks)}% </div>
-                        </div>
+                        <span>{item.client}</span>
+                      </DataTableRow>
+                      <DataTableRow size="md">
+                        <span>{item.project}</span>
                       </DataTableRow>
                       <DataTableRow size="mb">
-                        <Badge
-                          className="badge-dim"
-                          color={
-                            days > 10
-                              ? "light"
-                              : days <= 10 && days >= 2
-                              ? "warning"
-                              : days === 1
-                              ? "danger"
-                              : days <= 0 && "success"
-                          }
-                        >
+                        <Badge className="badge-dim" color={ days > 10 ? "light" : days <= 10 && days >= 2 ? "warning" : days === 1 ? "danger" : days <= 0 && "success" } >
                           <Icon name="clock"></Icon>
                           <span>{days <= 0 ? "Done" : days === 1 ? "Due Tomorrow" : days + " Days Left"}</span>
                         </Badge>
@@ -332,29 +270,11 @@ export const ProjectListPage = () => {
                               <DropdownMenu end>
                                 <ul className="link-list-opt no-bdr">
                                   <li onClick={() => onEditClick(item.id)}>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#edit"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                      }}
-                                    >
-                                      <Icon name="edit"></Icon>
-                                      <span>Edit</span>
-                                    </DropdownItem>
+                                    <DropdownItem tag="a" href="#edit" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="edit"></Icon> <span>Edit</span> </DropdownItem>
                                   </li>
                                   {days !== 0 && (
                                     <li onClick={() => completeProject(item.id)}>
-                                      <DropdownItem
-                                        tag="a"
-                                        href="#markasdone"
-                                        onClick={(ev) => {
-                                          ev.preventDefault();
-                                        }}
-                                      >
-                                        <Icon name="check-round-cut"></Icon>
-                                        <span>Mark As Done</span>
-                                      </DropdownItem>
+                                      <DropdownItem tag="a" href="#markasdone" onClick={(ev) => { ev.preventDefault(); }} > <Icon name="check-round-cut"></Icon> <span>Mark As Done</span> </DropdownItem>
                                     </li>
                                   )}
                                 </ul>
@@ -378,17 +298,17 @@ export const ProjectListPage = () => {
               />
             ) : (
               <div className="text-center">
-                <span className="text-silent">No projects found</span>
+                <span className="text-silent">No tasks found</span>
               </div>
             )}
           </PreviewAltCard>
         </Block>
 
-        <FormModal modal={modal.add} modalType="add" formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} />
-        <FormModal modal={modal.edit} modalType="edit" formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} />
+        <FormModalClientDetailsTask modal={modal.add} modalType="add" formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} />
+        <FormModalClientDetailsTask modal={modal.edit} modalType="edit" formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} />
       </Content>
     </React.Fragment>
   );
 };
 
-export default ProjectListPage;
+export default ClientDetailTasks;

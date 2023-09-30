@@ -4,19 +4,7 @@ import { Card} from "reactstrap";
 import Head from "../../../layout/head/Head";
 import DatePicker from "react-datepicker";
 import { Modal, ModalBody } from "reactstrap";
-import {
-  Block,
-  BlockBetween,
-  BlockDes,
-  BlockHead,
-  BlockHeadContent,
-  BlockTitle,
-  Icon,
-  Row,
-  Col,
-  Button,
-  RSelect
-} from "../../../components/Component";
+import { Block, BlockBetween, BlockDes, BlockHead, BlockHeadContent, BlockTitle, Icon, Row, Col, Button, RSelect } from "../../../components/Component";
 import { countryOptions, userData } from "./UserData";
 import { getDateStructured } from "../../../utils/Utils";
 import UserProfileAside from "./UserProfileAside";
@@ -65,9 +53,7 @@ const UserProfileRegularPage = () => {
     viewChange();
     window.addEventListener("load", viewChange);
     window.addEventListener("resize", viewChange);
-    document.getElementsByClassName("nk-header")[0].addEventListener("click", function () {
-      updateSm(false);
-    });
+  
     return () => {
       window.removeEventListener("resize", viewChange);
       window.removeEventListener("load", viewChange);
@@ -93,9 +79,7 @@ const UserProfileRegularPage = () => {
                 <BlockBetween>
                   <BlockHeadContent>
                     <BlockTitle tag="h4">Personal Information</BlockTitle>
-                    <BlockDes>
-                      <p>Basic info, like your name and address, that you use on Nio Platform.</p>
-                    </BlockDes>
+                    
                   </BlockHeadContent>
                   <BlockHeadContent className="align-self-start d-lg-none">
                     <Button
@@ -126,7 +110,7 @@ const UserProfileRegularPage = () => {
                   </div>
                   <div className="data-item" onClick={() => setModal(true)}>
                     <div className="data-col">
-                      <span className="data-label">Display Name</span>
+                      <span className="data-label">Your Company</span>
                       <span className="data-value">{userInfo.displayName}</span>
                     </div>
                     <div className="data-col data-col-end">
@@ -176,6 +160,28 @@ const UserProfileRegularPage = () => {
                         <br />
                         {userInfo.state}, {userInfo.country}
                       </span>
+                    </div>
+                    <div className="data-col data-col-end">
+                      <span className="data-more">
+                        <Icon name="forward-ios"></Icon>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                    <div className="data-col">
+                      <span className="data-label">Registration number</span>
+                      <span className="data-value">{userInfo.dob}</span>
+                    </div>
+                    <div className="data-col data-col-end">
+                      <span className="data-more">
+                        <Icon name="forward-ios"></Icon>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="data-item" onClick={() => setModal(true)}>
+                    <div className="data-col">
+                      <span className="data-label">VTA</span>
+                      <span className="data-value">{userInfo.dob}</span>
                     </div>
                     <div className="data-col data-col-end">
                       <span className="data-more">

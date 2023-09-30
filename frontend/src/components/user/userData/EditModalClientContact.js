@@ -1,42 +1,24 @@
 import React, {useEffect} from "react";
-import {
-  Modal,
-  ModalBody,
-  Form,
-} from "reactstrap";
-import {
-  Icon,
-  Col,
-  Button,
-  RSelect,
-} from "../../../components/Component";
+import { Modal, ModalBody, Form, } from "reactstrap";
+import { Icon, Col, Button, RSelect, } from "../../Component";
 import { useForm } from "react-hook-form";
 
 
-const AddModal = ({modal,closeModal,onSubmit, formData, setFormData,filterStatus}) => {
+const EditModal = ({modal,closeModal,onSubmit, formData, setFormData,filterStatus}) => {
     useEffect(() => {
         reset(formData)
       }, [formData]);
   const {reset, register, handleSubmit, formState: { errors } } = useForm();
   return (
-
+            
         <Modal isOpen={modal} toggle={() => closeModal()} className="modal-dialog-centered" size="lg">
           <ModalBody>
-            <a
-              href="#cancel"
-              onClick={(ev) => {
-                ev.preventDefault();
-                closeModal()
-              }}
-              className="close"
-            >
-              <Icon name="cross-sm"></Icon>
-            </a>
+            <a href="#cancel" onClick={(ev) => { ev.preventDefault(); closeModal() }} className="close" > <Icon name="cross-sm"></Icon> </a>
             <div className="p-2">
-              <h5 className="title">Add Client</h5>
+              <h5 className="title">Update Contact</h5>
               <div className="mt-4">
-                <Form className="row gy-4" noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <Col md="6">
+                <Form className="row gy-4" onSubmit={handleSubmit(onSubmit)}>
+                <Col md="6">
                     <div className="form-group">
                       <label className="form-label">Company</label>
                       <input
@@ -218,7 +200,7 @@ const AddModal = ({modal,closeModal,onSubmit, formData, setFormData,filterStatus
                     <ul className="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                       <li>
                         <Button color="primary" size="md" type="submit">
-                          Add User
+                          Update User
                         </Button>
                       </li>
                       <li>
@@ -242,4 +224,4 @@ const AddModal = ({modal,closeModal,onSubmit, formData, setFormData,filterStatus
         </Modal>
   );
 };
-export default AddModal;
+export default EditModal;

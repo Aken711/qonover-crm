@@ -68,7 +68,7 @@ $invoice-margin-bottom: 1.5rem !default;
         flex-direction: column;
     }
     &-desc {
-    	width: 210px;
+    	width: 30%;
     	padding-top: $invoice-margin-bottom;
         .title {
             text-transform: uppercase;
@@ -96,6 +96,7 @@ $invoice-margin-bottom: 1.5rem !default;
         }
     }
     &-contact {
+		width: 30%;
     	.title {
     		margin-bottom: 1rem;
     	}

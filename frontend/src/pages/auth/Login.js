@@ -61,7 +61,7 @@ const Login = () => {
             <BlockContent>
               <BlockTitle tag="h4">Sign-In</BlockTitle>
               <BlockDes>
-                <p>Access Dashlite using your email and passcode.</p>
+                <p>Access Qonover using your email and passcode.</p>
               </BlockDes>
             </BlockContent>
           </BlockHead>
@@ -76,7 +76,7 @@ const Login = () => {
             <div className="form-group">
               <div className="form-label-group">
                 <label className="form-label" htmlFor="default-01">
-                  Email or Username
+                  Email
                 </label>
               </div>
               <div className="form-control-wrap">
@@ -84,8 +84,8 @@ const Login = () => {
                   type="text"
                   id="default-01"
                   {...register('name', { required: "This field is required" })}
-                  defaultValue="info@softnio.com"
-                  placeholder="Enter your email address or username"
+                  defaultValue="johndoe@email.com"
+                  placeholder="Enter your email address"
                   className="form-control-lg form-control" />
                 {errors.name && <span className="invalid">{errors.name.message}</span>}
               </div>
@@ -131,35 +131,8 @@ const Login = () => {
           <div className="form-note-s2 text-center pt-4">
             New on our platform? <Link to={`${process.env.PUBLIC_URL}/auth-register`}>Create an account</Link>
           </div>
-          <div className="text-center pt-4 pb-3">
-            <h6 className="overline-title overline-title-sap">
-              <span>OR</span>
-            </h6>
-          </div>
-          <ul className="nav justify-center gx-4">
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Facebook
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Google
-              </a>
-            </li>
-          </ul>
+          
+          
         </PreviewCard>
       </Block>
       <AuthFooter />

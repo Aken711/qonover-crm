@@ -16,7 +16,7 @@ import {
 import { Link } from "react-router-dom";
 import { invoiceData } from "./Invoice";
 
-const InvoiceList = () => {
+const QuotationList = () => {
   const [data, setData] = useState(invoiceData);
   const [onSearch, setonSearch] = useState(true);
   const [onSearchText, setSearchText] = useState("");
@@ -71,9 +71,9 @@ const InvoiceList = () => {
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
-              <BlockTitle page>Invoices</BlockTitle>
+              <BlockTitle page>Quotations</BlockTitle>
               <BlockDes className="text-soft">
-                <p>You have total 937 invoices.</p>
+                <p>You have total 937 quotations.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
@@ -94,7 +94,7 @@ const InvoiceList = () => {
               <div className="card-inner">
                 <div className="card-title-group">
                   <div className="card-title">
-                    <h5 className="title">All Invoices</h5>
+                    <h5 className="title">All Quotations</h5>
                   </div>
                   <div className="card-tools me-n1">
                     <ul className="btn-toolbar">
@@ -300,4 +300,4 @@ const InvoiceList = () => {
     </React.Fragment>
   );
 };
-export default InvoiceList;
+export default QuotationList;

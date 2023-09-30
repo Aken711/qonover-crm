@@ -4,7 +4,6 @@ import { CustomerProvider } from "../pages/panel/e-commerce/customer/CustomerCon
 import { ProductContextProvider } from "../pages/pre-built/products/ProductContext";
 import { UserContextProvider } from "../pages/pre-built/user-manage/UserContext";
 
-import Homepage from "../pages/Homepage";
 import Sales from "../pages/Sales";
 import Analytics from "../pages/Analytics";
 
@@ -81,6 +80,8 @@ import SVGIconPage from "../pages/components/crafted-icons/SvgIcons";
 
 import ProjectCardPage from "../pages/pre-built/projects/ProjectCard";
 import ProjectListPage from "../pages/pre-built/projects/ProjectList";
+import ProjectDetails from "../pages/pre-built/projects/ProjectDetails";
+import TaskListPage from "../pages/pre-built/projects/TaskList";
 import UserListDefault from "../pages/pre-built/user-manage/UserListDefault";
 import UserListRegular from "../pages/pre-built/user-manage/UserListRegular";
 import UserContactCard from "../pages/pre-built/user-manage/UserContactCard";
@@ -99,6 +100,7 @@ import ProductCard from "../pages/pre-built/products/ProductCard";
 import ProductList from "../pages/pre-built/products/ProductList";
 import ProductDetails from "../pages/pre-built/products/ProductDetails";
 import InvoiceList from "../pages/pre-built/invoice/InvoiceList";
+import QuotationList from "../pages/pre-built/invoice/QuotationList";
 import InvoiceDetails from "../pages/pre-built/invoice/InvoiceDetails";
 import InvoicePrint from "../pages/pre-built/invoice/InvoicePrint";
 import PricingTable from "../pages/pre-built/pricing-table/PricingTable";
@@ -171,7 +173,25 @@ const Router = () => {
         <Route path={`${process.env.PUBLIC_URL}`} element={<Layout />}>
           
           {/*Dashboards*/}
-          <Route index element={<Homepage />}></Route>
+          <Route path=":id" element={<Sales />}></Route>
+          <Route element={<UserContextProvider />} >
+            <Route path="clients" element={<UserListCompact />}></Route>
+            <Route path="clients/:clientid" element={<UserDetails />}></Route>
+          </Route>
+          <Route path="projects" element={<ProjectListPage />}></Route>
+          <Route path="projects/:projectid" element={<ProjectDetails />}></Route>
+          <Route path="tasks" element={<TaskListPage />}></Route>
+          <Route path="tasks/:taskid" element={<ProjectListPage />}></Route>
+          <Route path="invoices" element={<InvoiceList />}></Route>
+          <Route path="invoices/:invoiceid" element={<InvoiceDetails />}></Route>
+          <Route path="invoice-print/:invoiceId" element={<InvoicePrint />}></Route>
+          <Route path="quotations" element={<QuotationList />}></Route>
+          <Route path="quotations/:invoiceid" element={<InvoiceDetails />}></Route>
+          <Route path="job-board" element={<Blank />}></Route>
+          <Route path="profile" element={<UserProfileRegular />}></Route>
+
+
+
           <Route path="sales" element={<Sales />}></Route>
           <Route path="analytics" element={<Analytics />}></Route>
           <Route path="_blank" element={<Blank />}></Route>
@@ -333,7 +353,6 @@ const Router = () => {
             </Route>
             <Route path="*" element={<Error404Modern />}></Route>
             
-            <Route path="invoice-print/:invoiceId" element={<InvoicePrint />}></Route>
         </Route>
       </Routes>
   );

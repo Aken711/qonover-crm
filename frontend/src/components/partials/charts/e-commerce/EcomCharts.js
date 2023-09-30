@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 
 import { Chart, CategoryScale, LinearScale, BarElement, PointElement, Tooltip, Legend, } from "chart.js";
-Chart.register(CategoryScale, LinearScale, BarElement, PointElement, Tooltip, Legend,);
+
 
 import {
   totalSales,
@@ -18,7 +18,7 @@ import {
   trafficSourcesSet3,
   storeVisitors,
 } from "./Data";
-
+Chart.register(CategoryScale, LinearScale, BarElement, PointElement, Tooltip, Legend,);
 export const TotalSalesChart = () => {
   return (
     <Line

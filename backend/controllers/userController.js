@@ -5,7 +5,14 @@ const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.find = (req, res) => {
   UserModel.find()
-    .populate(({ path: "client", populate: { path: "favorite_contact" } }))
+  .populate("client") // Population du champ "client"
+  .populate("tasks") // Population du champ "tasks"
+  .populate("project") // Population du champ "project"
+  .populate("invoices") // Population du champ "invoices"
+  .populate("quote") // Population du champ "quote"
+  .populate("referrer") // Population du champ "referrer"
+  .populate("special_referrer") // Population du champ "special_referrer"
+  .populate("referrered") // Population du champ "referrered"
     .exec()
     .then((user) => {
       res.send(user);

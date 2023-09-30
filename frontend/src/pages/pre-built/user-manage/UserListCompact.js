@@ -3,12 +3,7 @@ import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
 import { findUpper } from "../../../utils/Utils";
 import { userData, filterRole, filterStatus } from "./UserData";
-import {
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledDropdown,
-  DropdownItem,
-} from "reactstrap";
+import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from "reactstrap";
 import {
   Block,
   BlockBetween,
@@ -50,18 +45,34 @@ const UserListCompact = () => {
   });
   const [editId, setEditedId] = useState();
   const [formData, setFormData] = useState({
-    name: "",
+    company: "",
+    registrationnumber: "",
+    vta: "",
+    address: "",
+    zipcode: "",
+    city: "",
+    country: "",
+    firstname: "",
+    lastname: "",
+    jobposition: "",
     email: "",
-    balance: 0,
     phone: "",
     status: "Active",
   });
   const [editFormData, setEditFormData] = useState({
-    name: "",
+    company: "",
+    registrationnumber: "",
+    vta: "",
+    address: "",
+    zipcode: "",
+    city: "",
+    country: "",
+    firstname: "",
+    lastname: "",
+    jobposition: "",
     email: "",
-    balance: 0,
     phone: "",
-    status: "",
+    status: "Active",
   });
   const [actionText, setActionText] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -126,21 +137,29 @@ const UserListCompact = () => {
   // function to reset the form
   const resetForm = () => {
     setFormData({
-      name: "",
-      email: "",
-      balance:0,
-      phone: "",
-      status: "Active",
+      company: "",
+    registrationnumber: "",
+    vta: "",
+    address: "",
+    zipcode: "",
+    city: "",
+    country: "",
+    firstname: "",
+    lastname: "",
+    jobposition: "",
+    email: "",
+    phone: "",
+    status: "Active",
     });
   };
 
   const closeModal = () => {
-    setModal({ add: false })
+    setModal({ add: false });
     resetForm();
   };
 
   const closeEditModal = () => {
-    setModal({ edit: false })
+    setModal({ edit: false });
     resetForm();
   };
 
@@ -256,18 +275,34 @@ const UserListCompact = () => {
   // Change Page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // CSV
+  function convertToCSV(objArray) {
+    const array = typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
+    let str = "";
+
+    for (let i = 0; i < array.length; i++) {
+      let line = "";
+      for (let index in array[i]) {
+        if (line !== "") line += ",";
+        line += array[i][index];
+      }
+      str += line + "\r\n";
+    }
+    return str;
+  }
+
   return (
     <React.Fragment>
-      <Head title="User List - Compact"></Head>
+      <Head title="Client"></Head>
       <Content>
         <BlockHead size="sm">
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle tag="h3" page>
-                Users Lists
+                Clients Lists
               </BlockTitle>
               <BlockDes className="text-soft">
-                <p>You have total 2,595 users.</p>
+                <p>You have total 2,595 clients.</p>
               </BlockDes>
             </BlockHeadContent>
             <BlockHeadContent>
@@ -285,6 +320,24 @@ const UserListCompact = () => {
                         href="#export"
                         onClick={(ev) => {
                           ev.preventDefault();
+
+                          // Convert userData to CSV format
+                          const csv = convertToCSV(userData);
+
+                          // Create a blob from the CSV string
+                          const blob = new Blob([csv], { type: "text/csv" });
+                          const url = window.URL.createObjectURL(blob);
+
+                          // Create a link element and trigger a click to start download
+                          const a = document.createElement("a");
+                          a.style.display = "none";
+                          a.href = url;
+                          a.download = "export.csv";
+
+                          document.body.appendChild(a);
+                          a.click();
+
+                          window.URL.revokeObjectURL(url);
                         }}
                         className="btn btn-white btn-outline-light"
                       >
@@ -403,37 +456,32 @@ const UserListCompact = () => {
                                     <Row className="gx-6 gy-3">
                                       <Col size="6">
                                         <div className="custom-control custom-control-sm custom-checkbox">
-                                          <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasBalance"
-                                          />
-                                          <label className="custom-control-label" htmlFor="hasBalance">
+                                          <input type="checkbox" className="custom-control-input" id="hasInvoice" />
+                                          <label className="custom-control-label" htmlFor="hasInvoice">
                                             {" "}
-                                            Have Balance
+                                            Ongoing invoice
                                           </label>
                                         </div>
                                       </Col>
                                       <Col size="6">
                                         <div className="custom-control custom-control-sm custom-checkbox">
-                                          <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id="hasKYC"
-                                          />
-                                          <label className="custom-control-label" htmlFor="hasKYC">
+                                          <input type="checkbox" className="custom-control-input" id="hasOngoingProject" />
+                                          <label className="custom-control-label" htmlFor="hasOngoingProject">
                                             {" "}
-                                            KYC Verified
+                                            Ongoing project
                                           </label>
                                         </div>
                                       </Col>
                                       <Col size="6">
-                                        <div className="form-group">
-                                          <label className="overline-title overline-title-alt">Role</label>
-                                          <RSelect options={filterRole} placeholder="Any Role" />
+                                        <div className="custom-control custom-control-sm custom-checkbox">
+                                          <input type="checkbox" className="custom-control-input" id="hasOngoingquotation" />
+                                          <label className="custom-control-label" htmlFor="hasOngoingquotation">
+                                            {" "}
+                                            Ongoing quotation
+                                          </label>
                                         </div>
                                       </Col>
-                                      <Col size="6">
+                                      <Col size="12">
                                         <div className="form-group">
                                           <label className="overline-title overline-title-alt">Status</label>
                                           <RSelect options={filterStatus} placeholder="Any Status" />
@@ -446,24 +494,17 @@ const UserListCompact = () => {
                                       </Col>
                                     </Row>
                                   </div>
-                                  <div className="dropdown-foot between">
+                                  <div className="dropdown-foot between text-end">
                                     <a
                                       href="#reset"
                                       onClick={(ev) => {
                                         ev.preventDefault();
                                       }}
-                                      className="clickable"
+                                      className="clickable "
                                     >
                                       Reset Filter
                                     </a>
-                                    <a
-                                      href="#save"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                      }}
-                                    >
-                                      Save Filter
-                                    </a>
+                                    
                                   </div>
                                 </DropdownMenu>
                               </UncontrolledDropdown>
@@ -559,7 +600,7 @@ const UserListCompact = () => {
                     <input
                       type="text"
                       className="border-transparent form-focus-none form-control"
-                      placeholder="Search by user or email"
+                      placeholder="Search by company or email"
                       value={onSearchText}
                       onChange={(e) => onFilterChange(e)}
                     />
@@ -584,70 +625,39 @@ const UserListCompact = () => {
                   </div>
                 </DataTableRow>
                 <DataTableRow>
-                  <span className="sub-text">User</span>
-                </DataTableRow>
-                <DataTableRow size="md">
-                  <span className="sub-text">Role</span>
-                </DataTableRow>
-                <DataTableRow size="sm">
-                  <span className="sub-text">Email</span>
-                </DataTableRow>
-                <DataTableRow size="md">
-                  <span className="sub-text">Phone</span>
-                </DataTableRow>
-                <DataTableRow size="lg">
                   <span className="sub-text">Company</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
-                  <span className="sub-text">Verified</span>
+                <DataTableRow size="md">
+                  <span className="sub-text">First Name</span>
                 </DataTableRow>
-                <DataTableRow size="lg">
-                  <span className="sub-text">Last Login</span>
+                <DataTableRow size="md">
+                  <span className="sub-text">Last Name</span>
+                </DataTableRow>
+                <DataTableRow size="md">
+                  <span className="sub-text">Job Position</span>
+                </DataTableRow>
+                <DataTableRow size="md">
+                  <span className="sub-text">Country</span>
+                </DataTableRow>
+                <DataTableRow size="sm">
+                  <span className="sub-text">Created Date</span>
+                </DataTableRow>
+                <DataTableRow size="sm">
+                  <span className="sub-text">Ongoing projects</span>
+                </DataTableRow>
+                <DataTableRow size="sm">
+                  <span className="sub-text">Ongoing invoices</span>
+                </DataTableRow>
+                <DataTableRow size="sm">
+                  <span className="sub-text">Ongoing Quotation</span>
                 </DataTableRow>
                 <DataTableRow>
                   <span className="sub-text">Status</span>
                 </DataTableRow>
                 <DataTableRow className="nk-tb-col-tools text-end">
                   <UncontrolledDropdown>
-                    <DropdownToggle tag="a" className="btn btn-xs btn-outline-light btn-icon dropdown-toggle">
-                      <Icon name="plus"></Icon>
-                    </DropdownToggle>
-                    <DropdownMenu end className="dropdown-menu-xs">
-                      <ul className="link-tidy sm no-bdr">
-                        <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="bl" />
-                            <label className="custom-control-label" htmlFor="bl">
-                              Balance
-                            </label>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="ph" />
-                            <label className="custom-control-label" htmlFor="ph">
-                              Phone
-                            </label>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="vri" />
-                            <label className="custom-control-label" htmlFor="vri">
-                              Verified
-                            </label>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="custom-control custom-control-sm custom-checkbox">
-                            <input type="checkbox" className="custom-control-input" id="st" />
-                            <label className="custom-control-label" htmlFor="st">
-                              Status
-                            </label>
-                          </div>
-                        </li>
-                      </ul>
-                    </DropdownMenu>
+                    
+                    
                   </UncontrolledDropdown>
                 </DataTableRow>
               </DataTableHead>
@@ -672,55 +682,35 @@ const UserListCompact = () => {
                         <DataTableRow>
                           <Link to={`${process.env.PUBLIC_URL}/user-details-regular/${item.id}`}>
                             <div className="user-card">
-                              <UserAvatar
-                                theme={item.avatarBg}
-                                className="xs"
-                                text={findUpper(item.name)}
-                                image={item.image}
-                              ></UserAvatar>
                               <div className="user-name">
-                                <span className="tb-lead">{item.name}</span>
+                                <span className="tb-lead">{item.company}</span>
                               </div>
                             </div>
                           </Link>
                         </DataTableRow>
                         <DataTableRow size="md">
-                          <span>{item.role}</span>
-                        </DataTableRow>
-                        <DataTableRow size="sm">
-                          <span>{item.email}</span>
+                          <span>{item.firstname}</span>
                         </DataTableRow>
                         <DataTableRow size="md">
-                          <span>{item.phone}</span>
+                          <span>{item.lastname}</span>
                         </DataTableRow>
-                        <DataTableRow size="lg">
+                        <DataTableRow size="md">
+                          <span>{item.jobposition}</span>
+                        </DataTableRow>
+                        <DataTableRow size="md">
                           <span>{item.country}</span>
                         </DataTableRow>
-                        <DataTableRow size="lg">
-                          <ul className="list-status">
-                            <li>
-                              <Icon
-                                className={`text-${
-                                  item.emailStatus === "success"
-                                    ? "success"
-                                    : item.emailStatus === "pending"
-                                    ? "info"
-                                    : "secondary"
-                                }`}
-                                name={`${
-                                  item.emailStatus === "success"
-                                    ? "check-circle"
-                                    : item.emailStatus === "alert"
-                                    ? "alert-circle"
-                                    : "alarm-alt"
-                                }`}
-                              ></Icon>{" "}
-                              <span>Email</span>
-                            </li>
-                          </ul>
+                        <DataTableRow size="sm">
+                          <span>{item.createdDate}</span>
                         </DataTableRow>
-                        <DataTableRow size="lg">
-                          <span>{item.lastLogin}</span>
+                        <DataTableRow size="sm" >
+                          <span  >1</span>
+                        </DataTableRow>
+                        <DataTableRow size="sm" >
+                          <span >0</span>
+                        </DataTableRow>
+                        <DataTableRow size="sm" >
+                          <span >0</span>
                         </DataTableRow>
                         <DataTableRow>
                           <span
@@ -820,10 +810,23 @@ const UserListCompact = () => {
             </div>
           </DataTable>
         </Block>
-        
-        <AddModal modal={modal.add} formData={formData} setFormData={setFormData} closeModal={closeModal} onSubmit={onFormSubmit} filterStatus={filterStatus} />
-        <EditModal modal={modal.edit} formData={editFormData} setFormData={setEditFormData} closeModal={closeEditModal} onSubmit={onEditSubmit} filterStatus={filterStatus} />
-        
+
+        <AddModal
+          modal={modal.add}
+          formData={formData}
+          setFormData={setFormData}
+          closeModal={closeModal}
+          onSubmit={onFormSubmit}
+          filterStatus={filterStatus}
+        />
+        <EditModal
+          modal={modal.edit}
+          formData={editFormData}
+          setFormData={setEditFormData}
+          closeModal={closeEditModal}
+          onSubmit={onEditSubmit}
+          filterStatus={filterStatus}
+        />
       </Content>
     </React.Fragment>
   );

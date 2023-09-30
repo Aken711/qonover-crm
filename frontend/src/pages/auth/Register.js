@@ -43,7 +43,7 @@ const Register = () => {
             <BlockContent>
               <BlockTitle tag="h4">Register</BlockTitle>
               <BlockDes>
-                <p>Create New Dashlite Account</p>
+                <p>Create New Qonover Account</p>
               </BlockDes>
             </BlockContent>
           </BlockHead>
@@ -65,7 +65,7 @@ const Register = () => {
             <div className="form-group">
               <div className="form-label-group">
                 <label className="form-label" htmlFor="default-01">
-                  Email or Username
+                  Email 
                 </label>
               </div>
               <div className="form-control-wrap">
@@ -75,7 +75,7 @@ const Register = () => {
                   id="default-01"
                   {...register('email', { required: true })}
                   className="form-control-lg form-control"
-                  placeholder="Enter your email address or username" />
+                  placeholder="Enter your email address" />
                 {errors.email && <p className="invalid">This field is required</p>}
               </div>
             </div>
@@ -120,35 +120,7 @@ const Register = () => {
               <strong>Sign in instead</strong>
             </Link>
           </div>
-          <div className="text-center pt-4 pb-3">
-            <h6 className="overline-title overline-title-sap">
-              <span>OR</span>
-            </h6>
-          </div>
-          <ul className="nav justify-center gx-8">
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Facebook
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className="nav-link"
-                href="#socials"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                }}
-              >
-                Google
-              </a>
-            </li>
-          </ul>
+          
         </PreviewCard>
       </Block>
       <AuthFooter />

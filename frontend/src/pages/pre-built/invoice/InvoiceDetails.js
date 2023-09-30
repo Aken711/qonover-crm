@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  BlockHead,
-  BlockTitle,
-  Button,
-  Icon,
-  BlockDes,
-  BlockHeadContent,
-  Block,
-  BlockBetween,
-} from "../../../components/Component";
+import { BlockHead, BlockTitle, Button, Icon, BlockDes, BlockHeadContent, Block, BlockBetween, } from "../../../components/Component";
 import Content from "../../../layout/content/Content";
 import Head from "../../../layout/head/Head";
-import LogoDark from "../../../images/logo-dark.png";
 import { invoiceData } from "./Invoice";
 import { useParams, Link } from "react-router-dom";
 
@@ -40,7 +30,7 @@ const InvoiceDetails = () => {
             <BlockBetween className="g-3">
               <BlockHeadContent>
                 <BlockTitle>
-                  Invoice <strong className="text-primary small">#{user.orderId}</strong>
+                  Invoice <strong className="text-primary small">#{user.orderId}</strong> - Status : Active
                 </BlockTitle>
                 <BlockDes className="text-soft">
                   <ul className="list-inline">
@@ -74,12 +64,11 @@ const InvoiceDetails = () => {
                     <Icon name="printer-fill"></Icon>
                   </Button>
                 </Link>
+                <Button size="lg" color="primary" outline className="btn-icon btn-white btn-dim ms-1">
+                    <Icon name="edit-fill"></Icon>
+                  </Button>
               </div>
               <div className="invoice-wrap">
-                <div className="invoice-brand text-center">
-                  <img src={LogoDark} alt="" />
-                </div>
-
                 <div className="invoice-head">
                   <div className="invoice-contact">
                     <span className="overline-title">Invoice To</span>
@@ -92,6 +81,10 @@ const InvoiceDetails = () => {
                             House #65, 4328 Marion Street
                             <br />
                             Newbury, VT 05051
+                            <br />
+                            123 654 789
+                            <br />
+                            FR08 123 654 789
                           </span>
                         </li>
                         <li>
@@ -101,17 +94,24 @@ const InvoiceDetails = () => {
                       </ul>
                     </div>
                   </div>
+
                   <div className="invoice-desc">
                     <h3 className="title">Invoice</h3>
                     <ul className="list-plain">
-                      <li className="invoice-id">
-                        <span>Invoice ID</span>:<span>{user.orderId}</span>
-                      </li>
-                      <li className="invoice-date">
-                        <span>Date</span>:<span>{user.date.split(",")[0]}</span>
-                      </li>
+                      <li className="invoice-id"> <span>Invoice ID</span>:<span>{user.orderId}</span> </li>
+                      <li className="invoice-date"> <span>Date</span>:<span>{user.date.split(",")[0]}</span> </li>                     
+                    </ul>
+                    <ul >
+                      <li><span>Sender</span>:<span>Bryan Loukili</span> </li>
+                      <li><span></span><span className="text-nowrap">bryan@email.com</span> </li>
+                      <li><span></span><span>05 05 05 05 05</span> </li>
+                      <li><span></span><span>123 654 456</span> </li>
+                      <li><span></span><span>FR08 123 654 456</span> </li>
+                                 
                     </ul>
                   </div>
+
+
                 </div>
 
                 <div className="invoice-bills">

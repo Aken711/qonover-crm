@@ -18,7 +18,7 @@ const Layout = ({title, ...props}) => {
         <AppMain>
           <Sidebar fixed />
           <AppWrap>
-            <Header fixed />
+            {/* <Header fixed /> */}
               <Outlet />
             <Footer />
           </AppWrap>
