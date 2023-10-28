@@ -1,7 +1,5 @@
 import React from "react";
-import { DropdownItem, DropdownToggle, DropdownMenu, UncontrolledDropdown } from "reactstrap";
-import { Icon } from "../../../Component";
-import { LineChart } from "../../charts/sales/Charts";
+import { LineChart } from "../../charts/sales/ChartsLineDashboard";
 
 const SalesOverview = ({ timeframe = 'Last 30 days' }) => {
   return (
